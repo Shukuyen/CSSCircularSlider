@@ -7,8 +7,11 @@
 //
 
 #import "CSSViewController.h"
+#import "CSSCircularSlider.h"
 
 @interface CSSViewController ()
+
+@property (weak, nonatomic) IBOutlet CSSCircularSlider *slider;
 
 @end
 
@@ -18,6 +21,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.slider.thickness = 8.0f;
+    self.slider.backgroundImage = [UIImage imageNamed:@"bg"];
+    self.slider.layer.borderWidth = 1.0;
+    self.slider.layer.borderColor = [UIColor blackColor].CGColor;
 }
 
 - (void)didReceiveMemoryWarning

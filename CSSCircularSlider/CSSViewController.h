@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Example project for CSSCircularSlider
+ */
 @interface CSSViewController : UIViewController
 
 @end

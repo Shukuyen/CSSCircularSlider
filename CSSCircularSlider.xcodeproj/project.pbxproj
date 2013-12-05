@@ -21,6 +21,7 @@
 		31C5FC75184FDF7200CFADB4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C5FC57184FDF7200CFADB4 /* UIKit.framework */; };
 		31C5FC7D184FDF7200CFADB4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31C5FC7B184FDF7200CFADB4 /* InfoPlist.strings */; };
 		31C5FC7F184FDF7200CFADB4 /* CSSCircularSliderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C5FC7E184FDF7200CFADB4 /* CSSCircularSliderTests.m */; };
+		31C5FC8C1851067000CFADB4 /* CSSCircularSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C5FC8B1851067000CFADB4 /* CSSCircularSlider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		31C5FC7A184FDF7200CFADB4 /* CSSCircularSliderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSSCircularSliderTests-Info.plist"; sourceTree = "<group>"; };
 		31C5FC7C184FDF7200CFADB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		31C5FC7E184FDF7200CFADB4 /* CSSCircularSliderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSCircularSliderTests.m; sourceTree = "<group>"; };
+		31C5FC8A1851067000CFADB4 /* CSSCircularSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSCircularSlider.h; sourceTree = "<group>"; };
+		31C5FC8B1851067000CFADB4 /* CSSCircularSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSCircularSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +115,12 @@
 		31C5FC59184FDF7200CFADB4 /* CSSCircularSlider */ = {
 			isa = PBXGroup;
 			children = (
+				31C5FC89184FDFA400CFADB4 /* CircularSlider */,
 				31C5FC62184FDF7200CFADB4 /* CSSAppDelegate.h */,
 				31C5FC63184FDF7200CFADB4 /* CSSAppDelegate.m */,
-				31C5FC65184FDF7200CFADB4 /* Main.storyboard */,
 				31C5FC68184FDF7200CFADB4 /* CSSViewController.h */,
 				31C5FC69184FDF7200CFADB4 /* CSSViewController.m */,
+				31C5FC65184FDF7200CFADB4 /* Main.storyboard */,
 				31C5FC6B184FDF7200CFADB4 /* Images.xcassets */,
 				31C5FC5A184FDF7200CFADB4 /* Supporting Files */,
 			);
@@ -150,6 +154,15 @@
 				31C5FC7B184FDF7200CFADB4 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		31C5FC89184FDFA400CFADB4 /* CircularSlider */ = {
+			isa = PBXGroup;
+			children = (
+				31C5FC8A1851067000CFADB4 /* CSSCircularSlider.h */,
+				31C5FC8B1851067000CFADB4 /* CSSCircularSlider.m */,
+			);
+			path = CircularSlider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +266,7 @@
 				31C5FC6A184FDF7200CFADB4 /* CSSViewController.m in Sources */,
 				31C5FC64184FDF7200CFADB4 /* CSSAppDelegate.m in Sources */,
 				31C5FC60184FDF7200CFADB4 /* main.m in Sources */,
+				31C5FC8C1851067000CFADB4 /* CSSCircularSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
