@@ -16,23 +16,8 @@
 		31C5FC67184FDF7200CFADB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31C5FC65184FDF7200CFADB4 /* Main.storyboard */; };
 		31C5FC6A184FDF7200CFADB4 /* CSSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C5FC69184FDF7200CFADB4 /* CSSViewController.m */; };
 		31C5FC6C184FDF7200CFADB4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31C5FC6B184FDF7200CFADB4 /* Images.xcassets */; };
-		31C5FC73184FDF7200CFADB4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C5FC72184FDF7200CFADB4 /* XCTest.framework */; };
-		31C5FC74184FDF7200CFADB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C5FC53184FDF7200CFADB4 /* Foundation.framework */; };
-		31C5FC75184FDF7200CFADB4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C5FC57184FDF7200CFADB4 /* UIKit.framework */; };
-		31C5FC7D184FDF7200CFADB4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31C5FC7B184FDF7200CFADB4 /* InfoPlist.strings */; };
-		31C5FC7F184FDF7200CFADB4 /* CSSCircularSliderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C5FC7E184FDF7200CFADB4 /* CSSCircularSliderTests.m */; };
 		31C5FC8C1851067000CFADB4 /* CSSCircularSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C5FC8B1851067000CFADB4 /* CSSCircularSlider.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		31C5FC76184FDF7200CFADB4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31C5FC48184FDF7200CFADB4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 31C5FC4F184FDF7200CFADB4;
-			remoteInfo = CSSCircularSlider;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		31C5FC50184FDF7200CFADB4 /* CSSCircularSlider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSSCircularSlider.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,11 +34,6 @@
 		31C5FC68184FDF7200CFADB4 /* CSSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSViewController.h; sourceTree = "<group>"; };
 		31C5FC69184FDF7200CFADB4 /* CSSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSViewController.m; sourceTree = "<group>"; };
 		31C5FC6B184FDF7200CFADB4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		31C5FC71184FDF7200CFADB4 /* CSSCircularSliderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSSCircularSliderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		31C5FC72184FDF7200CFADB4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		31C5FC7A184FDF7200CFADB4 /* CSSCircularSliderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSSCircularSliderTests-Info.plist"; sourceTree = "<group>"; };
-		31C5FC7C184FDF7200CFADB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		31C5FC7E184FDF7200CFADB4 /* CSSCircularSliderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSCircularSliderTests.m; sourceTree = "<group>"; };
 		31C5FC8A1851067000CFADB4 /* CSSCircularSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSCircularSlider.h; sourceTree = "<group>"; };
 		31C5FC8B1851067000CFADB4 /* CSSCircularSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSCircularSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,16 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31C5FC6E184FDF7200CFADB4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				31C5FC73184FDF7200CFADB4 /* XCTest.framework in Frameworks */,
-				31C5FC75184FDF7200CFADB4 /* UIKit.framework in Frameworks */,
-				31C5FC74184FDF7200CFADB4 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -86,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				31C5FC59184FDF7200CFADB4 /* CSSCircularSlider */,
-				31C5FC78184FDF7200CFADB4 /* CSSCircularSliderTests */,
 				31C5FC52184FDF7200CFADB4 /* Frameworks */,
 				31C5FC51184FDF7200CFADB4 /* Products */,
 			);
@@ -96,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				31C5FC50184FDF7200CFADB4 /* CSSCircularSlider.app */,
-				31C5FC71184FDF7200CFADB4 /* CSSCircularSliderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,7 +75,6 @@
 				31C5FC53184FDF7200CFADB4 /* Foundation.framework */,
 				31C5FC55184FDF7200CFADB4 /* CoreGraphics.framework */,
 				31C5FC57184FDF7200CFADB4 /* UIKit.framework */,
-				31C5FC72184FDF7200CFADB4 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -134,24 +101,6 @@
 				31C5FC5C184FDF7200CFADB4 /* InfoPlist.strings */,
 				31C5FC5F184FDF7200CFADB4 /* main.m */,
 				31C5FC61184FDF7200CFADB4 /* CSSCircularSlider-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		31C5FC78184FDF7200CFADB4 /* CSSCircularSliderTests */ = {
-			isa = PBXGroup;
-			children = (
-				31C5FC7E184FDF7200CFADB4 /* CSSCircularSliderTests.m */,
-				31C5FC79184FDF7200CFADB4 /* Supporting Files */,
-			);
-			path = CSSCircularSliderTests;
-			sourceTree = "<group>";
-		};
-		31C5FC79184FDF7200CFADB4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				31C5FC7A184FDF7200CFADB4 /* CSSCircularSliderTests-Info.plist */,
-				31C5FC7B184FDF7200CFADB4 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -185,24 +134,6 @@
 			productReference = 31C5FC50184FDF7200CFADB4 /* CSSCircularSlider.app */;
 			productType = "com.apple.product-type.application";
 		};
-		31C5FC70184FDF7200CFADB4 /* CSSCircularSliderTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 31C5FC85184FDF7200CFADB4 /* Build configuration list for PBXNativeTarget "CSSCircularSliderTests" */;
-			buildPhases = (
-				31C5FC6D184FDF7200CFADB4 /* Sources */,
-				31C5FC6E184FDF7200CFADB4 /* Frameworks */,
-				31C5FC6F184FDF7200CFADB4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				31C5FC77184FDF7200CFADB4 /* PBXTargetDependency */,
-			);
-			name = CSSCircularSliderTests;
-			productName = CSSCircularSliderTests;
-			productReference = 31C5FC71184FDF7200CFADB4 /* CSSCircularSliderTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,11 +143,6 @@
 				CLASSPREFIX = CSS;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = schiffr.de;
-				TargetAttributes = {
-					31C5FC70184FDF7200CFADB4 = {
-						TestTargetID = 31C5FC4F184FDF7200CFADB4;
-					};
-				};
 			};
 			buildConfigurationList = 31C5FC4B184FDF7200CFADB4 /* Build configuration list for PBXProject "CSSCircularSlider" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -232,7 +158,6 @@
 			projectRoot = "";
 			targets = (
 				31C5FC4F184FDF7200CFADB4 /* CSSCircularSlider */,
-				31C5FC70184FDF7200CFADB4 /* CSSCircularSliderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -245,14 +170,6 @@
 				31C5FC6C184FDF7200CFADB4 /* Images.xcassets in Resources */,
 				31C5FC5E184FDF7200CFADB4 /* InfoPlist.strings in Resources */,
 				31C5FC67184FDF7200CFADB4 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		31C5FC6F184FDF7200CFADB4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				31C5FC7D184FDF7200CFADB4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,23 +187,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31C5FC6D184FDF7200CFADB4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				31C5FC7F184FDF7200CFADB4 /* CSSCircularSliderTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		31C5FC77184FDF7200CFADB4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 31C5FC4F184FDF7200CFADB4 /* CSSCircularSlider */;
-			targetProxy = 31C5FC76184FDF7200CFADB4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		31C5FC5C184FDF7200CFADB4 /* InfoPlist.strings */ = {
@@ -303,14 +204,6 @@
 				31C5FC66184FDF7200CFADB4 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		31C5FC7B184FDF7200CFADB4 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				31C5FC7C184FDF7200CFADB4 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -414,48 +307,6 @@
 			};
 			name = Release;
 		};
-		31C5FC86184FDF7200CFADB4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CSSCircularSlider.app/CSSCircularSlider";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CSSCircularSlider/CSSCircularSlider-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CSSCircularSliderTests/CSSCircularSliderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		31C5FC87184FDF7200CFADB4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CSSCircularSlider.app/CSSCircularSlider";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CSSCircularSlider/CSSCircularSlider-Prefix.pch";
-				INFOPLIST_FILE = "CSSCircularSliderTests/CSSCircularSliderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -475,14 +326,7 @@
 				31C5FC84184FDF7200CFADB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		31C5FC85184FDF7200CFADB4 /* Build configuration list for PBXNativeTarget "CSSCircularSliderTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				31C5FC86184FDF7200CFADB4 /* Debug */,
-				31C5FC87184FDF7200CFADB4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
