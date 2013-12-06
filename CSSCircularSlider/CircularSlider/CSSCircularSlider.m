@@ -150,7 +150,6 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     
     self.thumbImageView = [[UIImageView alloc] initWithImage:[CSSCircularSlider defaultThumbImage]];
     
-    
     CAShapeLayer *layer = [CAShapeLayer layer];
     self.circleLayer = layer;
     self.circleLayer.lineWidth = self.thickness;
@@ -161,7 +160,8 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
                                         self.bounds.size.width - self.thickness,
                                         self.bounds.size.height - self.thickness);
     
-    [self setValue:0.0];
+
+    [self.circleLayer setStrokeEnd:_value];
     
     [self.circleView.layer addSublayer:self.circleLayer];
     [self redrawCircle];
