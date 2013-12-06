@@ -26,13 +26,31 @@
 @property (nonatomic, assign) float thickness;
 
 /**
- You can specify a background image for the control.
+ Amount of padding the circle slider should have to the edges of the
+ control
+ */
+@property (nonatomic, assign) float padding;
+
+/**
+ Amount of padding the thumb image center should have to the edges of the 
+ control
+ */
+@property (nonatomic, assign) float thumbPadding;
+
+/**
+ An image view that is in the background of the control.
+ */
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+
+/**
+ You can specify a background image for the slider track.
+ 
  This image will be masked by the circle, so that it can be used to display
  a fancy gradient as the circle background or something like that.
  
- When backgroundImage is not nil the circleColor will be ignored.
+ When circleBackgroundImage is not nil the circleColor will be ignored.
  */
-@property (nonatomic, strong) UIImage *backgroundImage;
+@property (nonatomic, strong) UIImage *circleBackgroundImage;
 
 /**
  An image to use as the knob where the user can drag the slider.
@@ -41,13 +59,18 @@
 @property (nonatomic, strong) UIImage *thumbImage;
 
 /**
+ An image marking the zero value (12 o'clock)
+ */
+@property (nonatomic, strong) UIImage *zeroIndicatorImage;
+
+/**
  * The color used to tint the standard thumb.
  */
 @property (nonatomic, strong) UIColor *thumbTintColor;
 
 /**
  Background color of the circle.
- This has no effect if a backgroundImage is set.
+ This has no effect if a circleBackgroundImage is set.
  */
 @property (nonatomic, strong) UIColor *circleBackgroundColor;
 
@@ -87,8 +110,13 @@
 
 
 /// -----------------------
-/// @name Setting the slider value
+/// @name Setting and getting the slider value
 /// -----------------------
+
+/**
+ Current position of the slider
+ */
+@property (nonatomic, assign, readonly) float value;
 
 /**
  Set the current slider position.

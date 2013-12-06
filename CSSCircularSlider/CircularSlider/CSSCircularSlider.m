@@ -17,7 +17,7 @@
 /**
 View for the circle so that we can put the thumb image on top of it
  */
-@property (nonatomic, strong) UIView *circleView;
+@property (nonatomic, strong) UIImageView *circleView;
 
 /**
  The layer used for the circle
@@ -30,9 +30,14 @@ View for the circle so that we can put the thumb image on top of it
 @property (nonatomic, assign) float value;
 
 /**
- Imageview for the thumb control
+ ImageView for the thumb control
  */
 @property (nonatomic, strong) UIImageView *thumbImageView;
+
+/**
+ ImageView for the zero position indicator image
+ */
+@property (nonatomic, strong) UIImageView *zeroIndicatorImageView;
 
 @property (nonatomic, assign) CGFloat lastAngle;
 
@@ -67,7 +72,25 @@ View for the circle so that we can put the thumb image on top of it
 /**
  Calculate the circle path and set it
  */
-- (void)redrawCircle;
+- (void)drawCircle;
+
+/**
+ Position the thumb image according to the slider value
+ */
+- (void)positionThumbImage;
+
+/**
+ Position the thumb image according to the specified value with optional animation
+ 
+ @param value Slider value to move the thumb image to
+ @param animationDuration Duration of the animation, 0 to disable animation
+ */
+- (void)positionThumbImageWithValue:(float)value duration:(float)animationDuration;
+
+/**
+ Update the position of the zero indicator image view
+ */
+- (void)positionZeroIndicator;
 
 
 /// -----------------------
@@ -138,7 +161,14 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 
 - (void)setup
 {
-    self.circleView = [[UIView alloc] initWithFrame:self.bounds];
+    // Background image
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self addSubview:self.backgroundImageView];
+    
+    self.circleView = [[UIImageView alloc] initWithFrame:self.bounds];
+    self.circleView.contentMode = UIViewContentModeScaleAspectFill;
     self.circleView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.circleView];
     
@@ -164,10 +194,10 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     [self.circleLayer setStrokeEnd:_value];
     
     [self.circleView.layer addSublayer:self.circleLayer];
-    [self redrawCircle];
+    [self drawCircle];
     
     [self addSubview:self.thumbImageView];
-    self.thumbImageView.center = CGPointMake(CGRectGetMidX(self.bounds), self.thickness / 2);
+    [self positionThumbImage];
     
 	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureHappened:)];
 	panGestureRecognizer.maximumNumberOfTouches = panGestureRecognizer.minimumNumberOfTouches;
@@ -196,11 +226,11 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     return defaultThumbImage;
 }
 
-- (void)setBackgroundImage:(UIImage *)backgroundImage
+- (void)setCircleBackgroundImage:(UIImage *)backgroundImage
 {
-    if (![backgroundImage isEqual:_backgroundImage]) {
-        _backgroundImage = backgroundImage;
-        self.circleView.layer.contents = (id)backgroundImage.CGImage;
+    if (![backgroundImage isEqual:_circleBackgroundImage]) {
+        _circleBackgroundImage = backgroundImage;
+        self.circleView.image = backgroundImage;
         
         if (!backgroundImage) {
             // No background image, use circle colors
@@ -220,7 +250,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
             [self.circleView.layer setMask:self.circleLayer];
         }
         
-        [self redrawCircle];
+        [self drawCircle];
     }
 }
 
@@ -230,7 +260,20 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
         _thickness = thickness;
         self.circleLayer.lineWidth = thickness;
         
-        [self redrawCircle];
+        [self drawCircle];
+        [self positionThumbImage];
+        [self positionZeroIndicator];
+    }
+}
+
+- (void)setPadding:(float)padding
+{
+    if (padding != _padding) {
+        _padding = padding;
+        
+        [self drawCircle];
+        [self positionThumbImage];
+        [self positionZeroIndicator];
     }
 }
 
@@ -238,12 +281,12 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 {
     if (![circleBackgroundColor isEqual:_circleBackgroundColor]) {
         _circleBackgroundColor = circleBackgroundColor;
-        if (!self.backgroundImage) {
+        if (!self.circleBackgroundImage) {
             // Use color to draw the circle if no image is set
             self.circleLayer.strokeColor = circleBackgroundColor.CGColor;
         }
         
-        [self redrawCircle];
+        [self drawCircle];
     }
 }
 
@@ -252,7 +295,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     if (![circleActiveColor isEqual:_circleActiveColor]) {
         _circleActiveColor = circleActiveColor;
         
-        [self redrawCircle];
+        [self drawCircle];
     }
 }
 
@@ -274,12 +317,47 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 	}
 }
 
+- (void)setThumbPadding:(float)thumbPadding
+{
+    if (thumbPadding != _thumbPadding) {
+        _thumbPadding = thumbPadding;
+        
+        [self positionThumbImage];
+    }
+}
+
+- (void)setThumbImage:(UIImage *)thumbImage
+{
+    if (thumbImage != _thumbImage) {
+        _thumbImage = thumbImage;
+        
+        CGRect bounds;
+        bounds.origin = CGPointZero;
+        bounds.size = thumbImage.size;
+        
+        self.thumbImageView.bounds = bounds;
+        self.thumbImageView.image = thumbImage;
+    }
+}
+
 - (void)setThumbTintColor:(UIColor *)thumbTintColor
 {
 	if (![thumbTintColor isEqual:_thumbTintColor]) {
 		_thumbTintColor = thumbTintColor;
-		[self redrawCircle];
+		[self drawCircle];
 	}
+}
+
+- (void)setZeroIndicatorImage:(UIImage *)zeroIndicatorImage
+{
+    if (_zeroIndicatorImage != zeroIndicatorImage) {
+        _zeroIndicatorImage = zeroIndicatorImage;
+        
+        self.zeroIndicatorImageView = nil;
+        self.zeroIndicatorImageView = [[UIImageView alloc] initWithImage:zeroIndicatorImage];
+        [self insertSubview:self.zeroIndicatorImageView belowSubview:self.thumbImageView];
+        [self positionZeroIndicator];
+    }
 }
 
 #pragma mark - Setting the slider value
@@ -297,18 +375,8 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
         float delta = fabs(_value - currentValue);
         float duration = MAX(0.2, delta * 1.0);
         
-        // Angle for thumb image
-        // (x + r*sin(a), y + r*cos(a))
-        float angleFromTrack = translateValueFromSourceIntervalToDestinationInterval(_value, self.minimumValue, self.maximumValue, 0, 2 * M_PI);
-        if (animated) {
-            [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseInOut animations:^{
-                self.thumbImageView.center = CGPointMake(CGRectGetMidX(self.bounds) + [self radius] * sinf(angleFromTrack),
-                                                         CGRectGetMidY(self.bounds) - [self radius] * cosf(angleFromTrack));
-            } completion:NULL];
-        } else {
-            self.thumbImageView.center = CGPointMake(CGRectGetMidX(self.bounds) + [self radius] * sinf(angleFromTrack),
-                                                     CGRectGetMidY(self.bounds) - [self radius] * cosf(angleFromTrack));
-        }
+        // Update the thumb image
+        [self positionThumbImageWithValue:_value duration:duration];
         
         // Update the circle
         [CATransaction begin];
@@ -335,7 +403,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 
 - (float)radius
 {
-    CGRect bounds = CGRectInset(self.bounds, self.thickness / 2.0, self.thickness / 2.0);
+    CGRect bounds = CGRectInset(self.bounds, self.thickness / 2.0 + self.padding, self.thickness / 2.0 + self.padding);
     float width = bounds.size.width;
     float height = bounds.size.height;
     
@@ -347,6 +415,10 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 
 - (void)panGestureHappened:(UIPanGestureRecognizer *)sender
 {
+    if (!self.enabled) {
+        return;
+    }
+    
 	CGPoint tapLocation = [sender locationInView:self];
     CGPoint sliderCenter = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     CGPoint sliderStartPoint = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds) - [self radius]);
@@ -386,15 +458,45 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 
 #pragma mark - Drawing
 
-- (void)redrawCircle
+- (void)drawCircle
 {
-    UIBezierPath *circle = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0,
-                                                                              0,
+    float quarterThickness = self.thickness / 4;
+    UIBezierPath *circle = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.padding + quarterThickness,
+                                                                              self.padding + quarterThickness,
                                                                               2.0 * [self radius],
                                                                               2.0 * [self radius]) cornerRadius:[self radius]];
     self.circleLayer.path = circle.CGPath;
 }
 
+- (void)positionThumbImage
+{
+    [self positionThumbImageWithValue:self.value duration:0];
+}
+
+- (void)positionThumbImageWithValue:(float)value duration:(float)animationDuration
+{
+    // Angle for thumb image
+    // (x + r * sin(a), y + r * cos(a))
+    float angleFromTrack = translateValueFromSourceIntervalToDestinationInterval(value, self.minimumValue, self.maximumValue, 0, 2 * M_PI);
+    float radiusWithThumbPadding = [self radius] - self.thumbPadding;
+
+    if (animationDuration) {
+        [UIView animateWithDuration:animationDuration delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseInOut animations:^{
+            self.thumbImageView.center = CGPointMake(CGRectGetMidX(self.bounds) + radiusWithThumbPadding * sinf(angleFromTrack),
+                                                     CGRectGetMidY(self.bounds) - radiusWithThumbPadding * cosf(angleFromTrack));
+        } completion:NULL];
+    } else {
+        self.thumbImageView.center = CGPointMake(CGRectGetMidX(self.bounds) + radiusWithThumbPadding * sinf(angleFromTrack),
+                                                 CGRectGetMidY(self.bounds) - radiusWithThumbPadding * cosf(angleFromTrack));
+    }
+}
+
+- (void)positionZeroIndicator
+{
+    if (self.zeroIndicatorImageView) {
+        self.zeroIndicatorImageView.center = CGPointMake(CGRectGetMidX(self.bounds), self.padding + self.thickness / 2);
+    }
+}
 
 #pragma mark - Utility Functions
 
