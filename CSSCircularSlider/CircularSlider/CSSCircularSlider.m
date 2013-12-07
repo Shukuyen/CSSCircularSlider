@@ -173,10 +173,9 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     [self addSubview:self.circleView];
     
     _thickness = 8.0;
-    _circleBackgroundColor = [UIColor lightGrayColor];
     _minimumValue = 0.0;
     _maximumValue = 1.0;
-    _thumbTintColor = [UIColor darkGrayColor];
+    _continuous = YES;
     
     self.thumbImageView = [[UIImageView alloc] initWithImage:[CSSCircularSlider defaultThumbImage]];
     
@@ -184,7 +183,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     self.circleLayer = layer;
     self.circleLayer.lineWidth = self.thickness;
     self.circleLayer.fillColor = [UIColor clearColor].CGColor;
-    self.circleLayer.strokeColor = self.circleBackgroundColor.CGColor;
+    self.circleLayer.strokeColor = [UIColor blackColor].CGColor;
     self.circleLayer.frame = CGRectMake(self.thickness / 2,
                                         self.thickness / 2,
                                         self.bounds.size.width - self.thickness,
@@ -231,24 +230,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     if (![backgroundImage isEqual:_circleBackgroundImage]) {
         _circleBackgroundImage = backgroundImage;
         self.circleView.image = backgroundImage;
-        
-        if (!backgroundImage) {
-            // No background image, use circle colors
-            self.circleLayer.strokeColor = self.circleBackgroundColor.CGColor;
-            self.circleLayer.fillColor = [UIColor clearColor].CGColor;
-            
-            if (![self.circleLayer superlayer]) {
-                self.circleView.layer.mask = nil;
-                [self.circleView.layer addSublayer:self.circleLayer];
-            }
-        } else {
-            self.circleLayer.fillColor = [UIColor clearColor].CGColor;
-            self.circleLayer.strokeColor = [UIColor blackColor].CGColor;
-            if ([self.circleLayer superlayer]) {
-                [self.circleLayer removeFromSuperlayer];
-            }
-            [self.circleView.layer setMask:self.circleLayer];
-        }
+        [self.circleView.layer setMask:self.circleLayer];
         
         [self drawCircle];
     }
@@ -274,28 +256,6 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
         [self drawCircle];
         [self positionThumbImage];
         [self positionZeroIndicator];
-    }
-}
-
-- (void)setCircleBackgroundColor:(UIColor *)circleBackgroundColor
-{
-    if (![circleBackgroundColor isEqual:_circleBackgroundColor]) {
-        _circleBackgroundColor = circleBackgroundColor;
-        if (!self.circleBackgroundImage) {
-            // Use color to draw the circle if no image is set
-            self.circleLayer.strokeColor = circleBackgroundColor.CGColor;
-        }
-        
-        [self drawCircle];
-    }
-}
-
-- (void)setCircleActiveColor:(UIColor *)circleActiveColor
-{
-    if (![circleActiveColor isEqual:_circleActiveColor]) {
-        _circleActiveColor = circleActiveColor;
-        
-        [self drawCircle];
     }
 }
 
@@ -340,14 +300,6 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     }
 }
 
-- (void)setThumbTintColor:(UIColor *)thumbTintColor
-{
-	if (![thumbTintColor isEqual:_thumbTintColor]) {
-		_thumbTintColor = thumbTintColor;
-		[self drawCircle];
-	}
-}
-
 - (void)setZeroIndicatorImage:(UIImage *)zeroIndicatorImage
 {
     if (_zeroIndicatorImage != zeroIndicatorImage) {
@@ -360,6 +312,15 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     }
 }
 
+- (void)setZeroIndicatorPadding:(float)zeroIndicatorPadding
+{
+    if (_zeroIndicatorPadding != zeroIndicatorPadding) {
+        _zeroIndicatorPadding = zeroIndicatorPadding;
+        
+        [self positionZeroIndicator];
+    }
+}
+
 #pragma mark - Setting the slider value
 
 - (void)setValue:(float)value animated:(BOOL)animated
@@ -367,8 +328,13 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
     if (value != _value) {
         float currentValue = _value;
         
-		if (value > self.maximumValue) { value = self.maximumValue; }
-		if (value < self.minimumValue) { value = self.minimumValue; }
+		if (value > self.maximumValue) {
+            value = self.maximumValue;
+        }
+        
+		if (value < self.minimumValue) {
+            value = self.minimumValue;
+        }
 
         _value = value;
         
@@ -389,7 +355,9 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
         [self.circleLayer setStrokeEnd:_value];
         [CATransaction commit];
 
-        [self sendActionsForControlEvents:UIControlEventValueChanged];
+        if (self.isContinuous ) {
+            [self sendActionsForControlEvents:UIControlEventValueChanged];
+        }
     }
 }
 
@@ -450,6 +418,12 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 			break;
 		}
             
+        case UIGestureRecognizerStateEnded:
+            if (!self.isContinuous) {
+                [self sendActionsForControlEvents:UIControlEventValueChanged];
+            }
+        break;
+            
 		default:
 			break;
 	}
@@ -494,7 +468,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 - (void)positionZeroIndicator
 {
     if (self.zeroIndicatorImageView) {
-        self.zeroIndicatorImageView.center = CGPointMake(CGRectGetMidX(self.bounds), self.padding + self.thickness / 2);
+        self.zeroIndicatorImageView.center = CGPointMake(CGRectGetMidX(self.bounds), self.padding + self.thickness / 2 + self.zeroIndicatorPadding);
     }
 }
 

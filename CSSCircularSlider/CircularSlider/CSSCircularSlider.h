@@ -12,7 +12,8 @@
 #import <UIKit/UIKit.h>
 
 /**
- CSSCircularSlider is a round slider control. 
+ CSSCircularSlider is a round slider control with an image mask as the slider track.
+ This enables you to display a round slider with nice background graphics.
  */
 @interface CSSCircularSlider : UIControl
 
@@ -38,17 +39,22 @@
 @property (nonatomic, assign) float thumbPadding;
 
 /**
+ Amount of padding the zero indicator image should have to the top edge
+ of the control
+ */
+@property (nonatomic, assign) float zeroIndicatorPadding;
+
+/**
  An image view that is in the background of the control.
  */
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
 /**
- You can specify a background image for the slider track.
+ The background image for the slider track.
  
  This image will be masked by the circle, so that it can be used to display
- a fancy gradient as the circle background or something like that.
- 
- When circleBackgroundImage is not nil the circleColor will be ignored.
+ a fancy gradient as the circle background or something like that. It can be
+ as big as the control, only the active part of the slider will be visible.
  */
 @property (nonatomic, strong) UIImage *circleBackgroundImage;
 
@@ -62,23 +68,6 @@
  An image marking the zero value (12 o'clock)
  */
 @property (nonatomic, strong) UIImage *zeroIndicatorImage;
-
-/**
- * The color used to tint the standard thumb.
- */
-@property (nonatomic, strong) UIColor *thumbTintColor;
-
-/**
- Background color of the circle.
- This has no effect if a circleBackgroundImage is set.
- */
-@property (nonatomic, strong) UIColor *circleBackgroundColor;
-
-/**
- Color of the active part of the circle (zero to where the thumb knob is).
- This has no effect if a background image is set.
- */
-@property (nonatomic, strong) UIColor *circleActiveColor;
 
 /**
  * The minimum value of the receiver.
@@ -102,8 +91,6 @@
  * If YES, the slider sends update events continuously to the associated target’s action method.
  * If NO, the slider only sends an action event when the user releases the slider’s thumb control to set the final value.
  * The default value of this property is YES.
- *
- * @warning Not implemented Yet.
  */
 @property (nonatomic, assign, getter=isContinuous) BOOL continuous;
 
