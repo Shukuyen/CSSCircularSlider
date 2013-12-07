@@ -9,6 +9,9 @@
 #import "CSSCircularSlider.h"
 
 @interface CSSCircularSlider()
+{
+    BOOL _panning;
+}
 
 /// -----------------------
 /// @name Private Properties
@@ -355,7 +358,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
         [self.circleLayer setStrokeEnd:_value];
         [CATransaction commit];
 
-        if (self.isContinuous ) {
+        if (self.isContinuous && _panning) {
             [self sendActionsForControlEvents:UIControlEventValueChanged];
         }
     }
@@ -401,6 +404,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 
 	switch (sender.state) {
         case UIGestureRecognizerStateBegan:
+            _panning = YES;
             self.lastAngle = angle;
             break;
             
@@ -422,9 +426,11 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
             if (!self.isContinuous) {
                 [self sendActionsForControlEvents:UIControlEventValueChanged];
             }
+            _panning = NO;
         break;
             
 		default:
+            _panning = NO;
 			break;
 	}
 }
