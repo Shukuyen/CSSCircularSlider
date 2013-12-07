@@ -14,11 +14,11 @@ Pod::Spec.new do |s|
                    Then you need to specify a `circleBackgroundImage` that will be used to display the slider track. It also makes sense to add your view controller as a target to the `UIControlEventValueChanged` control event. Have a look at the header file for other optional parameters.
                    DESC
 
-  s.homepage     = "https://github.com/shukuyen/csscircularslider"
+  s.homepage     = "https://github.com/Shukuyen/CSSCircularSlider"
   s.license      = 'MIT'
   s.author       = { "Cornelius Schiffer" => "shukuyen@gmail.com" }
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/shukuyen/csscircularslider.git", :tag => '0.1' }
+  s.source       = { :git => "https://github.com/Shukuyen/CSSCircularSlider.git", :tag => '0.1' }
   s.source_files  = 'CSSCircularSlider/CircularSlider/*.{h,m}'
   s.requires_arc = true
 
