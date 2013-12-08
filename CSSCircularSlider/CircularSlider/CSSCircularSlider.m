@@ -355,7 +355,16 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
             [CATransaction setDisableActions:YES];
         }
         
-        [self.circleLayer setStrokeEnd:_value];
+        // Translate the value with possible custom min/max values to a value
+        // with min 0.0 and max 1.0:
+        // val - min / (max - min)
+        float localValue = 0;
+        // prevent division xby zero
+        if (self.maximumValue != self.minimumValue) {
+            localValue = (_value - self.minimumValue) / (self.maximumValue - self.minimumValue);
+        }
+        
+        [self.circleLayer setStrokeEnd:localValue];
         [CATransaction commit];
 
         if (self.isContinuous && _panning) {
