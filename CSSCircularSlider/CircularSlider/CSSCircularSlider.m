@@ -56,6 +56,21 @@ View for the circle so that we can put the thumb image on top of it
 
 
 /// -----------------------
+/// @name Setting the slider value
+/// -----------------------
+
+/**
+ Set the current slider position.
+ 
+ @param value The slider value to set
+ @param animated `YES` if the slider change should be animated
+ @param isGestureEvent `YES` if the value change was requested due to a gesture
+                       recognizer event instead of direct setting by the user
+ */
+- (void)setValue:(float)value animated:(BOOL)animated gestureEvent:(BOOL)isGestureEvent;
+
+
+/// -----------------------
 /// @name Calculation
 /// -----------------------
 
@@ -328,6 +343,16 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
 
 - (void)setValue:(float)value animated:(BOOL)animated
 {
+    [self setValue:value animated:animated gestureEvent:NO];
+}
+
+- (void)setValue:(float)value animated:(BOOL)animated gestureEvent:(BOOL)isGestureEvent
+{
+    if (!isGestureEvent && _panning) {
+        // Ignore values set programatically while the user is dragging the slider
+        return;
+    }
+    
     if (value != _value) {
         float currentValue = _value;
         
@@ -426,7 +451,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
                 angle = 0;
             }
             
-            [self setValue:translateValueFromSourceIntervalToDestinationInterval(angle, 0, 2 * M_PI, self.minimumValue, self.maximumValue)];
+            [self setValue:translateValueFromSourceIntervalToDestinationInterval(angle, 0, 2 * M_PI, self.minimumValue, self.maximumValue) animated:NO gestureEvent:YES];
             self.lastAngle = angle;
 			break;
 		}
