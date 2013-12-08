@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CSSCircularSlider"
-  s.version      = "0.1"
+  s.version      = "0.2"
   s.summary      = "A round slider control that uses a masked background image as the slider track."
 
   s.description  = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = { "Cornelius Schiffer" => "shukuyen@gmail.com" }
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/Shukuyen/CSSCircularSlider.git", :tag => '0.1' }
+  s.source       = { :git => "https://github.com/Shukuyen/CSSCircularSlider.git", :tag => '0.2' }
   s.source_files  = 'CSSCircularSlider/CircularSlider/*.{h,m}'
   s.requires_arc = true
 
