@@ -342,7 +342,7 @@ CGFloat angleBetweenThreePoints(CGPoint centerPoint, CGPoint p1, CGPoint p2);
         _value = value;
         
         float delta = fabs(_value - currentValue);
-        float duration = MAX(0.2, delta * 1.0);
+        float duration = animated ? MIN(0.2, delta * 1.0) : 0;
         
         // Update the thumb image
         [self positionThumbImageWithValue:_value duration:duration];
